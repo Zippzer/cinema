@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Movie</title>
+</head>
+<body>
+
+  <h2>Rate Movie: {{ movie.title }}</h2>
+
+  <form method="post" action="{% url 'rate_movie' movie_id=movie.id %}">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Rate</button>
+  </form>
+
+</body>
+</html>
+

@@ -1,8 +1,8 @@
 from django import forms
 from .models import Film
-from .models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Rating
+from .models import CustomUser
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class FilmForm(forms.ModelForm):
@@ -11,20 +11,19 @@ class FilmForm(forms.ModelForm):
         fields = ('title', 'description', 'img')
 
 
-class UserCreation(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ('email', 'username')
 
 
-class YourAuthenticationForm(AuthenticationForm):
+class CustomUserChangeForm(UserChangeForm):
     class Meta:
-        model = User
-        fields = ('username', 'password')
+        model = CustomUser
+        fields = ('email', 'username',)
 
 
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
-        fields = ['movie','value']
-
+        fields = ['movie', 'value']

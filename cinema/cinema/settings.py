@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'films.CustomUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fc8+xxor1!2@%hvi4-z)^n@ucxz1*_ud(ze0djt0=ottq_e!wu'
+key = os.getenv('SECRET_KEY')
+SECRET_KEY =key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

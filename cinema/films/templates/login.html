@@ -1,22 +1,17 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кино - Вход</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-</head>
-<body>
-    <div class="login-container">
-        <h2>Вход</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit">Войти</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <h2>Login</h2>
+    <form method="post" action="{% url 'custom_login' %}">
+        {% csrf_token %}
+        {{ login_form.username.label_tag }}
+        {{ login_form.username }}
+        {{ login_form.password.label_tag }}
+        {{ login_form.password }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
+
+
 

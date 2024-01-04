@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}Кино - Фильмы{% endblock %}
 {% block content %}
-    <div class="content-block">
-        <h2>Фильмы</h2>
-        <ul>
-            {% for film in movie %}
-                <li>
-                    <div class="film-poster">
-                        <img src="{{ film.img.url }}" alt="{{ film.title }} Poster">
-                    </div>
-                    <div class="film-details">
-                        <h3>{{ film.title }}</h3>
-                        <p>{{ film.description }}</p>
-                        {% with rating=film.rating_set.first %}
-                            {% if rating %}
-                                <p>Оценка: {{ rating.value }}/5</p>
-                            {% else %}
-                                <p>Оценка отсутствует</p>
-                            {% endif %}
-                        {% endwith %}
-                        <a href="{% url 'rate_movie' movie_id=film.id %}">Поставить оценку</a>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <h2>Фильмы</h2>
+    <ul>
+        {% for film in movie %}
+            <li>
+                <div class="film-poster">
+                    <img src="{{ film.img.url }}" alt="{{ film.title }} Poster">
+                </div>
+                <div class="film-details">
+                    <h3><a href="{% url 'film_detail' film.id %}">{{ film.title }}</a></h3>
+                    <p>{{ film.description }}</p>
+                    {% with rating=film.rating_set.first %}
+                        {% if rating %}
+                            <p>Оценка: {{ rating.value }}/5</p>
+                        {% else %}
+                            <p>Оценка отсутствует</p>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
+
+
+
+
+
+
+
+

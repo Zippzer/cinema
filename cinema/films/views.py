@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FilmForm, RatingForm, CustomUserCreationForm
 from .models import Film, Rating
-from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-from django.views import View
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def index(request):
@@ -59,3 +56,26 @@ def rate_movie(request, movie_id):
         form = RatingForm()
 
     return render(request, 'rate_movie.html', {'form': form, 'movie': movie})
+
+
+def custom_login(request):
+    if request.method == 'POST':
+        login_form = AuthenticationForm(request, request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                error_message = "Неверный адрес электронной почты или пароль."
+                return render(request, 'login.html', {'login_form': login_form, 'error_message': error_message})
+    else:
+        login_form = AuthenticationForm()
+    return render(request, 'login.html', {'login_form': login_form})
+
+
+def film_detail(request,film_id):
+    film = get_object_or_404(Film, pk=film_id)
+    return render(request,'film_detail.html',{'film':film})

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="film-details">
+        <h2>{{ film.title }}</h2>
+        <div class="film-poster">
+            <img src="{{ film.img.url }}" alt="{{ film.title }} Poster">
+        </div>
+        <p>{{ film.description }}</p>
+        {% with rating=film.rating_set.first %}
+            {% if rating %}
+                <p>Оценка: {{ rating.value }}/5</p>
+            {% else %}
+                <p>Оценка отсутствует</p>
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}
